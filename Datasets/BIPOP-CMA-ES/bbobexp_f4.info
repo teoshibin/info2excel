@@ -1,0 +1,18 @@
+funcId = 4, DIM = 2, Precision = 1.000e-08, algId = 'BIPOP-CMA-ES'
+% 0005 BIPOP-CMA-ES: cmaes V3.30.beta, cmaes25 ccum=new stopstagnation, sigmaUp=10^20, maxrestartfunevals=1e7*DIM restarts=9 maxiter=100 + 50 * (N+3)^2/sqrt(popsize) no xopt sigma0=2
+data_f4/bbobexp_f4_DIM2.dat, 1:61872|-6.3e-10, 1:31721|-5.2e-09, 1:30217|-5.6e-09, 2:118646|-7.5e-09, 2:20478|-5.1e-09, 2:242906|-6.1e-09, 3:233150|-9.7e-09, 3:6750|-8.7e-09, 3:63976|-9.2e-09, 4:19203|-1.0e-08, 4:476|-7.3e-09, 4:28789|-4.6e-09, 5:28257|-1.4e-09, 5:1396|-9.5e-09, 5:35208|-6.6e-09
+funcId = 4, DIM = 3, Precision = 1.000e-08, algId = 'BIPOP-CMA-ES'
+% 0005 BIPOP-CMA-ES: cmaes V3.30.beta, cmaes25 ccum=new stopstagnation, sigmaUp=10^20, maxrestartfunevals=1e7*DIM restarts=9 maxiter=100 + 50 * (N+3)^2/sqrt(popsize) no xopt sigma0=2
+data_f4/bbobexp_f4_DIM3.dat, 1:1387134|8.8e-01, 1:1370211|9.9e-01, 1:1315296|9.9e-02, 2:394228|-3.4e-09, 2:1216393|1.5e-01, 2:1303564|2.2e-01, 3:1259921|7.2e-01, 3:1295159|9.9e-01, 3:1216494|1.1e+00, 4:1312483|9.9e-01, 4:15576|-3.5e-09, 4:111579|-4.4e-09, 5:18568|-1.7e-10, 5:1292241|3.6e-01, 5:1418279|8.0e-01
+funcId = 4, DIM = 5, Precision = 1.000e-08, algId = 'BIPOP-CMA-ES'
+% 0005 BIPOP-CMA-ES: cmaes V3.30.beta, cmaes25 ccum=new stopstagnation, sigmaUp=10^20, maxrestartfunevals=1e7*DIM restarts=9 maxiter=100 + 50 * (N+3)^2/sqrt(popsize) no xopt sigma0=2
+data_f4/bbobexp_f4_DIM5.dat, 1:1910727|2.0e+00, 1:1786829|2.0e+00, 1:1724438|2.3e+00, 2:2050812|2.0e+00, 2:1765469|2.2e+00, 2:1775977|2.0e+00, 3:1739257|2.0e+00, 3:1829952|2.0e+00, 3:1551855|2.9e+00, 4:1772489|2.7e+00, 4:1756902|2.0e+00, 4:1740033|2.0e+00, 5:1929596|2.0e+00, 5:1727726|2.2e+00, 5:2035976|2.1e+00
+funcId = 4, DIM = 10, Precision = 1.000e-08, algId = 'BIPOP-CMA-ES'
+% 0005 BIPOP-CMA-ES: cmaes V3.30.beta, cmaes25 ccum=new stopstagnation, sigmaUp=10^20, maxrestartfunevals=1e7*DIM restarts=9 maxiter=100 + 50 * (N+3)^2/sqrt(popsize) no xopt sigma0=2
+data_f4/bbobexp_f4_DIM10.dat, 1:3519796|5.9e+00, 1:3049338|6.0e+00, 1:3152856|5.0e+00, 2:3201219|5.0e+00, 2:2931389|6.0e+00, 2:3140809|6.0e+00, 3:3456985|5.6e+00, 3:3053218|5.6e+00, 3:3205333|6.0e+00, 4:3194735|5.0e+00, 4:3112937|5.0e+00, 4:3114734|5.0e+00, 5:3041059|5.0e+00, 5:2882895|4.0e+00, 5:3097444|4.0e+00
+funcId = 4, DIM = 20, Precision = 1.000e-08, algId = 'BIPOP-CMA-ES'
+% 0005 BIPOP-CMA-ES: cmaes V3.30.beta, cmaes25 ccum=new stopstagnation, sigmaUp=10^20, maxrestartfunevals=1e7*DIM restarts=9 maxiter=100 + 50 * (N+3)^2/sqrt(popsize) no xopt sigma0=2
+data_f4/bbobexp_f4_DIM20.dat, 1:5055925|1.2e+01, 1:5044577|1.2e+01, 1:4825352|1.4e+01, 2:6457759|1.2e+01, 2:5507215|1.2e+01, 2:5132558|1.2e+01, 3:5814388|1.3e+01, 3:5029865|1.3e+01, 3:6472406|1.3e+01, 4:5808443|1.2e+01, 4:6126523|1.3e+01, 4:6491730|1.1e+01, 5:5033348|1.2e+01, 5:5506889|1.2e+01, 5:5129833|1.2e+01
+funcId = 4, DIM = 40, Precision = 1.000e-08, algId = 'BIPOP-CMA-ES'
+% 0005 BIPOP-CMA-ES: cmaes V3.30.beta, cmaes25 ccum=new stopstagnation, sigmaUp=10^20, maxrestartfunevals=1e7*DIM restarts=9 maxiter=100 + 50 * (N+3)^2/sqrt(popsize) no xopt sigma0=2
+data_f4/bbobexp_f4_DIM40.dat, 1:10852971|3.0e+01, 1:12082019|2.7e+01, 1:11706303|2.7e+01, 2:10848941|2.5e+01, 2:13099052|2.6e+01, 2:10748806|3.0e+01, 3:12104308|2.8e+01, 3:12503129|2.9e+01, 3:11004127|2.7e+01, 4:11691069|2.5e+01, 4:13068936|2.6e+01, 4:11041790|2.6e+01, 5:12065773|2.7e+01, 5:11491922|2.5e+01, 5:11933946|2.8e+01
