@@ -49,7 +49,7 @@ method 2: replace negative values with precision (default)
 		info2excel\info2excel.py -i [DATASET] 								# or
 		info2excel\info2excel.py -i [DATASET] -m [METHOD] -d [DIMENSION] -p [PRECISION] -o [EXCELNAME]
 		# d by default 5
-		# o by default "[ALGONAME]_[DIMENSION]D"
+		# o by default "[ALGONAME]_[PRECISION]_[DIMENSION]D"
 		# p by default 1e-8
 		# m by default 2 (see SOME ISSUE)
 	```
