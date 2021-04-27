@@ -67,16 +67,17 @@ minimum_delta = 1e-14
 	
 	```Sh
 		info2excel\info2excel.py -i [DATASET] 								# or
-		info2excel\info2excel.py -i [DATASET] -d [DIMENSION] -p [PRECISION] -o [EXCELNAME]
+		info2excel\info2excel.py -i [DATASET] -d [DIMENSION] -o [EXCELNAME] -u [UPPER_BOUND] -l [LOWER_BOUND]
 		# OPTIONAL ARGUMENTS
 		# d by default 5
 		# o by default "[ALGONAME]_[DIMENSION]D"
-		# p by default 1e-16
+		# u by default 1e+3
+		# l by default 1e-14
 	```
 	Example command
 	```Sh
 		info2excel\info2excel.py -i CMAES 				#or
-		info2excel\info2excel.py -i CMAES -d 5 -o CMAES_1e-8_5D
-		# both output : CMAES_5D.xlsx
+		info2excel\info2excel.py -i CMAES -d 5 -o CMAES_5D -u 1e+3 -l 1e-14
+		# both output same content : CMAES_5D.xlsx
 	```
 4. generated excel is in [ExcelScore](ExcelScore)
