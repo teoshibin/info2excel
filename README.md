@@ -16,8 +16,6 @@ Therefore, if fbest reached the global minimum, say at `50`, `ftarget = 50 + 1e-
 delta_fitness = 50 - 50 - 1e-8
 delta fitness = -1e-8
 ```
-The best way is to +1e-8 but intoducing 0 into excel
-
 ### Solution   
 replace values beyond the bound with threshold values
 ```
