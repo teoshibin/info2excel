@@ -40,8 +40,9 @@ def infoTo2dlist(dataset_folder, name, extensions, number_benchmarks):
     return data
 
 # convert 2d list to pandas dataframe
-def createDataframe(datalist, number_benchmarks):
+def createDataframe(datalist):
     number_instance = len(datalist[0])
+    number_benchmarks = len(datalist)
     mycolumns = ['Instance ' + str(x) for x in range(1, number_instance + 1)]
     myindex = ['f' + str(x) for x in range(1, number_benchmarks + 1)]
     df = pd.DataFrame(datalist, columns=mycolumns, index=myindex)
@@ -89,6 +90,8 @@ def main(argv):
     dimensions = [2, 3, 5, 10 , 20, 40]
     number_benchmarks = 24
     dimension = 5
+    minimum_delta = 1e-14
+    maximum_delta = 1e+3
 
     ## preset IO folder name ##
     dir = os.path.dirname(__file__)
@@ -99,13 +102,13 @@ def main(argv):
 
     ### Main script ###
     ## error msg ##
-    wrong_syntax_msg = ('info2excel.py -i [ALGONAME] -d [DIMENSION] -o [EXCELNAME]\n'
-                        'info2excel.py -i [ALGONAME]\n'
-                        '-d & o by default is 5 & "[ALGONAME]_[DIMENSION]D"\n')
+    wrong_syntax_msg = ('info2excel.py -i [ALGONAME] -d [DIMENSION] -o [EXCELNAME] -u [UPPER_BOUND] -l [LOWER_BOUND]\n'
+                        'info2excel.py -i [ALGONAME]\n')
+    wrong_dimensions_msg = '--dimension not found in' + str(dimensions)
 
     ## parse in args ##
     try:
-        opts, args = getopt.getopt(argv,"i:d:o:",["ifile=", "--dimension", "ofile="])
+        opts, args = getopt.getopt(argv,"i:d:u:l:o:",["ifile=", "dimension=", "ofile=", "upperbound=", "lowerbound="])
     except getopt.GetoptError:
         print(wrong_syntax_msg)
         sys.exit(2)
@@ -114,14 +117,23 @@ def main(argv):
         if opt in ("-i", "--ifile"):
             algorithm_name = arg
         elif opt in ("-d", "--dimension"):
-            dimension = int(arg)
+            dimension = abs(int(arg))
+        elif opt in ("-u", "--upperbound"):
+            maximum_delta = abs(double(arg))
+        elif opt in ("-l", "--lowerbound"):
+            minimum_delta = abs(double(arg))
         elif opt in ("-o", "--ofile"):
             excelname = arg
     
+    ## validation ##
     if len(algorithm_name) == 0:
         print(wrong_syntax_msg)
         sys.exit(2)
-    
+
+    if not(dimension in dimensions):
+        print(wrong_dimensions_msg)
+        sys.exit(2)
+
     if len(excelname) == 0:
         excelname = algorithm_name + '_' + str(dimension) + 'D'
 
@@ -133,12 +145,18 @@ def main(argv):
     data = querySpecificDimension(data, number_benchmarks, dimensions.index(dimension))
 
     data = double(data) # convert string to double
-    data = abs(data) # remove negative sign
-    df = createDataframe(data, 24)
+    df = createDataframe(data)
+    
+    print("\n\n=== Raw Data ===\n")
     print(df)
-    df.where(df <= 1000, 1000, inplace=True)
-    # when df <= 1000 then do not replace
-    # when df > 1000 then replace with 1000
+
+    df.where(df >= minimum_delta, minimum_delta, inplace=True)
+    df.where(df <= maximum_delta, maximum_delta, inplace=True)
+    # when df <= maximum_delta then do not replace
+    # when df > maximum_delta then replace with maximum_delta
+    
+    print("\n\n=== Manipulated Data ===\n")
+    print(df)
 
     ## output value into exisiting excel template ##
     copyfile(os.path.join(dir, 'template.xlsx'), full_output_path)
