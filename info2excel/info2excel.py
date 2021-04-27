@@ -90,8 +90,9 @@ def main(argv):
     dimensions = [2, 3, 5, 10 , 20, 40]
     number_benchmarks = 24
     dimension = 5
-    precision = 1e-8
-    method = 2
+    precision = 1e-16
+    minimum_delta = 1e-14
+    maximum_delta = 1e+3
 
     ## preset IO folder name ##
     dir = os.path.dirname(__file__)
@@ -109,7 +110,7 @@ def main(argv):
 
     ## parse in args ##
     try:
-        opts, args = getopt.getopt(argv,"i:d:m:p:o:",["ifile=", "dimension=", "method=", "precision=", "ofile="])
+        opts, args = getopt.getopt(argv,"i:d:m:p:o:",["ifile=", "dimension=", "precision=", "ofile="])
     except getopt.GetoptError:
         print(wrong_syntax_msg)
         sys.exit(2)
@@ -119,18 +120,18 @@ def main(argv):
             algorithm_name = arg
         elif opt in ("-d", "--dimension"):
             dimension = abs(int(arg))
-        elif opt in ("-m", "--method"):
-            method = abs(int(arg))
         elif opt in ("-p", "--precision"):
             precision = abs(double(arg))
         elif opt in ("-o", "--ofile"):
             excelname = arg
     
     ## validation ##
-    if len(algorithm_name) == 0        or \
-        not( dimension in dimensions)  or \
-        not(method in [1, 2]):
+    if len(algorithm_name) == 0:
         print(wrong_syntax_msg)
+        sys.exit(2)
+
+    if not(dimension in dimensions):
+        print(wrong_dimensions_msg)
         sys.exit(2)
 
     if len(excelname) == 0:
@@ -149,14 +150,8 @@ def main(argv):
     print("\n\n=== Raw Data ===\n")
     print(df)
 
-    if method == 1:
-        df = df.add(precision) # shift delta to 0 as global optimum delta value and removing 0 by adding precision again
-        df = df.abs()
-        df = df.add(precision)
-    elif method == 2:
-        df.where(df >= precision, precision, inplace=True)
-
-    df.where(df <= 1000, 1000, inplace=True)
+    df.where(df >= minimum_delta, minimum_delta, inplace=True)
+    df.where(df <= maximum_delta, maximum_delta, inplace=True)
     # when df <= 1000 then do not replace
     # when df > 1000 then replace with 1000
     
