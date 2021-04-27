@@ -102,9 +102,8 @@ def main(argv):
 
     ### Main script ###
     ## error msg ##
-    wrong_syntax_msg = ('info2excel.py -i [ALGONAME] -d [DIMENSION] -p [precision] -o [EXCELNAME]\n'
-                        'info2excel.py -i [ALGONAME]\n'
-                        '-d & o by default is 5 & "[ALGONAME]_[DIMENSION]D"\n')
+    wrong_syntax_msg = ('info2excel.py -i [ALGONAME] -d [DIMENSION] -o [EXCELNAME] -u [UPPER_BOUND] -l [LOWER_BOUND]\n'
+                        'info2excel.py -i [ALGONAME]\n')
     wrong_dimensions_msg = '--dimension not found in' + str(dimensions)
 
     ## parse in args ##
