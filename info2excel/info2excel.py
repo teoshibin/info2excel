@@ -90,7 +90,6 @@ def main(argv):
     dimensions = [2, 3, 5, 10 , 20, 40]
     number_benchmarks = 24
     dimension = 5
-    precision = 1e-16
     minimum_delta = 1e-14
     maximum_delta = 1e+3
 
@@ -110,7 +109,7 @@ def main(argv):
 
     ## parse in args ##
     try:
-        opts, args = getopt.getopt(argv,"i:d:m:p:o:",["ifile=", "dimension=", "precision=", "ofile="])
+        opts, args = getopt.getopt(argv,"i:d:u:l:o:",["ifile=", "dimension=", "ofile=", "upperbound=", "lowerbound="])
     except getopt.GetoptError:
         print(wrong_syntax_msg)
         sys.exit(2)
@@ -120,8 +119,10 @@ def main(argv):
             algorithm_name = arg
         elif opt in ("-d", "--dimension"):
             dimension = abs(int(arg))
-        elif opt in ("-p", "--precision"):
-            precision = abs(double(arg))
+        elif opt in ("-u", "--upperbound"):
+            maximum_delta = abs(double(arg))
+        elif opt in ("-l", "--lowerbound"):
+            minimum_delta = abs(double(arg))
         elif opt in ("-o", "--ofile"):
             excelname = arg
     
@@ -135,7 +136,7 @@ def main(argv):
         sys.exit(2)
 
     if len(excelname) == 0:
-        excelname = algorithm_name + '_' + str(precision) + '_' + str(dimension) + 'D'
+        excelname = algorithm_name + '_' + str(dimension) + 'D'
 
     ## data retrieval ##
     full_dataset_path = os.path.join(dataset_folder, algorithm_name)
@@ -152,8 +153,8 @@ def main(argv):
 
     df.where(df >= minimum_delta, minimum_delta, inplace=True)
     df.where(df <= maximum_delta, maximum_delta, inplace=True)
-    # when df <= 1000 then do not replace
-    # when df > 1000 then replace with 1000
+    # when df <= maximum_delta then do not replace
+    # when df > maximum_delta then replace with maximum_delta
     
     print("\n\n=== Manipulated Data ===\n")
     print(df)
