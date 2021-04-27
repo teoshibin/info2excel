@@ -45,6 +45,7 @@ minimum_delta = 1e-14
 	```
 ### Mac (terminal Bash)
 1. clone and navigate into the repository
+
 	```Bash
 		cd [REPO]
 	```	
@@ -65,6 +66,7 @@ minimum_delta = 1e-14
 1. place datasets into [Datasets](Datasets) folder
 2. activate virtual environment (step 3 of installation)
 3. generate excel
+	
 	```Sh
 		info2excel\info2excel.py -i [DATASET] 								# or
 		info2excel\info2excel.py -i [DATASET] -d [DIMENSION] -p [PRECISION] -o [EXCELNAME]
