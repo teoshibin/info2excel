@@ -81,3 +81,6 @@ minimum_delta = 1e-14
 		# both output same content : CMAES_5D.xlsx
 	```
 4. generated excel is in [ExcelScore](ExcelScore)
+
+	> **NOTE**   
+	> Always remove pre-existing dataset when rerunning the experiment
