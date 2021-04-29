@@ -178,6 +178,7 @@ def main(argv):
     print("\n\n=== Manipulated Data ===\n")
     print(df)
 
+    # data output
     generateExcel(df, full_output_path)
 
 if __name__ == "__main__":
