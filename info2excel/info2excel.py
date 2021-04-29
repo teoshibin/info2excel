@@ -65,7 +65,7 @@ def createDataframe(datalist):
 # insert values into exisiting excel template
 def generateExcel(df, path):
 
-    copyfile(os.path.join(dir, 'template.xlsx'), path)
+    copyfile(os.path.join(os.path.dirname(__file__), 'template.xlsx'), path)
 
     book = load_workbook(path)
     writer = pd.ExcelWriter(path, engine='openpyxl') 
