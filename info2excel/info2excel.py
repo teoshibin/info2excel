@@ -16,7 +16,6 @@ from openpyxl import load_workbook
 
 # convert delta f opt from different files into 2d array
 def infoTo2dlist(dataset_folder, name, extensions, number_benchmarks):
-    # os.path.join(os.path.dirname(os.getcwd()), dataset_folder)
     paths = getPaths(dataset_folder, name, extensions, number_benchmarks)
     dimensions = getDimensions(paths[0]);
     line_to_read = [x*3+2 for x in range(0, dimensions)]
@@ -39,14 +38,6 @@ def infoTo2dlist(dataset_folder, name, extensions, number_benchmarks):
 
     return data
 
-# convert 2d list to pandas dataframe
-def createDataframe(datalist):
-    number_instance = len(datalist[0])
-    number_benchmarks = len(datalist)
-    mycolumns = ['Instance ' + str(x) for x in range(1, number_instance + 1)]
-    myindex = ['f' + str(x) for x in range(1, number_benchmarks + 1)]
-    df = pd.DataFrame(datalist, columns=mycolumns, index=myindex)
-    return df
 
 # select certain dimension
 def querySpecificDimension(data, number_benchmarks, selected_dimension_id):
@@ -60,8 +51,34 @@ def querySpecificDimension(data, number_benchmarks, selected_dimension_id):
             benchmark_count += 1
     return new_data
 
+
+# convert 2d list to pandas dataframe
+def createDataframe(datalist):
+    number_instance = len(datalist[0])
+    number_benchmarks = len(datalist)
+    mycolumns = ['Instance ' + str(x) for x in range(1, number_instance + 1)]
+    myindex = ['f' + str(x) for x in range(1, number_benchmarks + 1)]
+    df = pd.DataFrame(datalist, columns=mycolumns, index=myindex)
+    return df
+
+
+# insert values into exisiting excel template
+def generateExcel(df, path):
+
+    copyfile(os.path.join(dir, 'template.xlsx'), path)
+
+    book = load_workbook(path)
+    writer = pd.ExcelWriter(path, engine='openpyxl') 
+    writer.book = book
+
+    writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
+    df.to_excel(writer, 'Sheet1', index=False, header=False, startcol=1, startrow=1)
+    writer.save()
+
+
 ### Helper Functions ###
 
+# generate all the paths to each file
 def getPaths(folder, name, extensions, number_benchmarks):
     paths = []
     for i in range(1, number_benchmarks + 1):
@@ -69,10 +86,12 @@ def getPaths(folder, name, extensions, number_benchmarks):
     return paths
 
 
+# get total number of dimensions
 def getDimensions(path):
     return  int(countLine(path) / 3)
 
 
+# count number of lines in file
 def countLine(path):
     file = open(path, "r")
     line_count = 0
@@ -83,6 +102,7 @@ def countLine(path):
     return line_count
 
 
+# main function
 def main(argv):
 
     ### Main Parameters ###
@@ -94,9 +114,9 @@ def main(argv):
     maximum_delta = 1e+3
 
     ## preset IO folder name ##
-    dir = os.path.dirname(__file__)
-    dataset_folder = os.path.join(dir, os.pardir, 'Datasets')
-    output_folder = os.path.join(dir, os.pardir, 'ExcelScore')
+    dir = os.path.dirname(__file__) # path = ./
+    dataset_folder = os.path.join(dir, os.pardir, 'Datasets') # path = ../Datasets/[actual datasets]
+    output_folder = os.path.join(dir, os.pardir, 'ExcelScore') # path = ../ExcelScore/[excels]
     algorithm_name = ''
     excelname = ''
 
@@ -158,16 +178,7 @@ def main(argv):
     print("\n\n=== Manipulated Data ===\n")
     print(df)
 
-    ## output value into exisiting excel template ##
-    copyfile(os.path.join(dir, 'template.xlsx'), full_output_path)
-
-    book = load_workbook(full_output_path)
-    writer = pd.ExcelWriter(full_output_path, engine='openpyxl') 
-    writer.book = book
-
-    writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
-    df.to_excel(writer, 'Sheet1', index=False, header=False, startcol=1, startrow=1)
-    writer.save()
+    generateExcel(df, full_output_path)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
